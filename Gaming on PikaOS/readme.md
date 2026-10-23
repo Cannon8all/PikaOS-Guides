@@ -7,13 +7,14 @@ PikaOS ships with the latest graphics drivers out of the box, so your GPU is rea
 
 Install it from a terminal:
 
-```
-pikman i pika-gameutils-meta
-```
+
+> pikman i pika-gameutils-meta
+
 
 You can also install it from the **PikaOS Welcome** app.
 
 ---
+<div style="margin-top: 50px;"></div>
 
 ## Which Proton version should I use?
 
@@ -23,16 +24,19 @@ You can also install it from the **PikaOS Welcome** app.
 - **Proton 11.0:** The current stable release. A good default for games that are known to run well on it.
 - **Proton 10.0 and older:** Older stable releases. Only use these if a game works with them and not with newer versions.
 
-> Community builds are for experienced users who want extra features, want to run Proton outside of Steam, or need fixes that Valve's Proton doesn't have yet. They are not supported by Valve. They are community projects and experimental by nature.
-{.is-info}
-
 ### Community Proton builds
 
-- **Proton-CachyOS:** Made by the CachyOS team, with extra quality-of-life features, fixes and experimental changes. It comes in two flavors, `proton-cachyos-native` and `proton-cachyos-slr`. We recommend `proton-cachyos-slr`.
+- **Proton-CachyOS:** Made by the CachyOS team, with extra quality-of-life features, fixes and experimental changes. It comes in two flavors, `proton-cachyos x86_64` and `proton-cachyos v3`
 - **Proton-EM:** A good pick if you want winewayland and FSR4 without Proton-CachyOS's extras. Many of Proton-CachyOS's improvements originate here, so it's also the one to follow for the latest winewayland development.
-- **Proton-GE:** Made by [GloriousEggroll](https://github.com/GloriousEggroll/proton-ge-custom). It includes various fixes and can help in specific cases.
+- **Proton-GE:** Made by GloriousEggroll. It includes various fixes and can help in specific cases.
+> 
+> Community builds are for experienced users who want extra features, want to run Proton outside of Steam, or need fixes that Valve's Proton doesn't have yet. They are not supported by Valve. They are community projects and experimental by nature.
+{.is-warning}
+
+
 
 ---
+<div style="margin-top: 50px;"></div>
 
 ## Shader pre-caching
 
@@ -51,48 +55,44 @@ To turn it off, open **Steam → Settings → Downloads** and untick:
 {.is-warning}
 
 ---
+<div style="margin-top: 50px;"></div>
 
 ## Increasing the shader cache size
 
 Compiled shaders are stored on your system and reused later. The cache has a size limit, though, and once it's full, the oldest shaders are dropped. Some large games have over 1 GB of shaders, so they can end up recompiling on every launch. Raising the limit avoids the repeated stutter and long load times.
 
-Open a terminal and create the config directory if it doesn't exist:
+**Open a terminal and create the config directory if it doesn't exist:**
 
-```
-mkdir -p ~/.config/environment.d
-```
+ 
+> mkdir -p ~/.config/environment.d
 
-Create the config file:
 
-```
-touch ~/.config/environment.d/gaming.conf
-```
 
-Open it in nano:
+**Create and open the file in nano:**
 
-```
-nano ~/.config/environment.d/gaming.conf
-```
+> nano ~/.config/environment.d/gaming.conf
 
-Paste the line for your GPU vendor.
 
-**AMD** (12 GB):
+**Paste the line for your GPU vendor.**
 
-```
-MESA_SHADER_CACHE_MAX_SIZE=12G
-```
+AMD (12 GB):
 
-**NVIDIA** (12 GB):
 
-```
-__GL_SHADER_DISK_CACHE_SIZE=12000000000
-```
+> MESA_SHADER_CACHE_MAX_SIZE=12G
+
+
+NVIDIA (12 GB):
+
+
+> __GL_SHADER_DISK_CACHE_SIZE=12000000000
+
 
 Save the file with `Ctrl + O` and `Enter`, then exit nano with `Ctrl + X`.
 
 Log out and back in for the change to apply.
 
 ---
+<div style="margin-top: 50px;"></div>
 
 ## falcond
 
@@ -100,7 +100,10 @@ falcond is PikaOS's profile-based gaming performance daemon. It runs quietly in 
 
 A selection of popular profiles is already included, like the Proton profile that activates for any game running in a Proton compatibility layer.
 
+**Falcond-gui is the PikaOS app you can use to configure everything in a handy way.**
+
 > Don't use falcond together with the older gamemode. They will interfere with each other.
+> Falcond does not have to be added to the game launch options
 {.is-danger}
 
 ### What it does
@@ -119,11 +122,8 @@ A selection of popular profiles is already included, like the Proton profile tha
 
 Your GPU has a limited amount of video memory (VRAM). Normally, background programs can use a chunk of it, which can lead to stutter when a game needs more. dmem lets the system give VRAM priority to the game you're playing.
 
-### falcond-gui
-
-**falcond-gui** is a very handy app for falcond. Use it to manage falcond without editing files by hand.
-
 ---
+<div style="margin-top: 50px;"></div>
 
 ## Troubleshooting Proton
 
@@ -131,26 +131,15 @@ Your GPU has a limited amount of video memory (VRAM). Normally, background progr
 
 If a game crashes or misbehaves, a Proton log is the first thing anyone helping you will ask for.
 
-> When sharing logs, upload them to [paste.pika-os.com](https://paste.pika-os.com/) instead of pasting them directly into the chat. Drag and drop the log file onto the website, then share the link it gives you.
-{.is-info}
+When sharing logs, upload them to [paste.pika-os.com](https://paste.pika-os.com/) instead of pasting them directly into the chat. Drag and drop the log file onto the website, then share the link it gives you.
 
 To turn on Proton logging for a game:
 
 1. In Steam, right-click the game and select **Properties**.
 2. Under **Launch Options**, enter:
 
-```
-PROTON_LOG=1 %command%
-```
+
+> PROTON_LOG=1 %command%
+
 
 The next time you start the game, Proton writes a log file to your home folder named `steam-[AppID].log`. For example, Counter-Strike 2 has the AppID 730, so its log is `steam-730.log`.
-
-### Saving logs to a custom folder
-
-To save the log somewhere else, add `PROTON_LOG_DIR` with the folder you want:
-
-```
-PROTON_LOG=1 PROTON_LOG_DIR=/home/username/steam-logs %command%
-```
-
-Replace `username` with your own username.
