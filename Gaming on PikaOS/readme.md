@@ -33,8 +33,8 @@ Community builds add extra features and fixes that Valve's Proton doesn't have y
 
 You can install and update community builds with **ProtonPlus**, which comes with `pika-gameutils-meta`. It can set them up for Steam, Lutris and Heroic.
 
-- **Proton-GE:** Made by GloriousEggroll and based on Valve's Proton, with many extra fixes. It is known for its video playback fixes, which help games with missing or broken cutscenes. It also includes many fixes for individual games and optional OptiScaler support. It is the most widely used community build, and a good first one to try when a game won't run on Valve's Proton.
-- **Proton-CachyOS:** Made by the CachyOS team and based on Proton Experimental. It adds quality-of-life features, performance work and experimental changes, including low-latency versions of DXVK and VKD3D, FSR4 upgrading for AMD GPUs and winewayland improvements. It comes in different builds for different CPUs. Choose `x86_64_v3` if your CPU supports it, otherwise the plain `x86_64` build. If you can pick between an SLR (Steam Linux Runtime) build and a native one, we recommend the SLR build.
+- **Proton-GE:** Made by GloriousEggroll and based on Valve's Proton, with many extra fixes. It is known for its video playback fixes, which help games with missing or broken cutscenes. It also includes many fixes for individual games and optional OptiScaler support. It is the most widely used community build.
+- **Proton-CachyOS:** Made by the CachyOS team and based on Proton Experimental. It adds quality-of-life features, performance work and experimental changes, including low-latency versions of DXVK and VKD3D, FSR4 upgrading for AMD GPUs and winewayland improvements. It comes in different builds for different CPUs. Choose `x86_64_v3` if your CPU supports it, otherwise the plain `x86_64` build. You can pick between an SLR (Steam Linux Runtime) build and a native one.
 - **Proton-EM:** Made by Etaash-mathamsetty. It focuses on native Wayland support (winewayland), HDR and FSR4 upscaling, without the extras that Proton-CachyOS adds. Many of Proton-CachyOS's and Proton-GE's Wayland improvements originate here, so it's the one to follow if you want the latest Wayland development.
 
 
@@ -227,26 +227,24 @@ A selection of popular profiles is already included, like the Proton profile tha
 
 **Falcond-gui is the PikaOS app you can use to configure everything in a handy way.**
 
-> Don't use `falcond` together with the `feral gamemode`. They will interfere with each other.
->
-> Falcond does not have to be added to the game launch options.
-{.is-danger}
+>Don't use `falcond` together with `feral gamemode`. They will interfere.
+>Falcond does not have to be added to the game launch options.
+{.is-warning}
+
+
 
 ### What it does
 
 - **Automatic game detection:** Detects running games and applies optimized settings.
 - **Per-game profiles:** Each game can have its own profile.
 - **Performance mode:** Turns on system-wide performance optimizations while you play.
-- **3D V-Cache management:** On AMD CPUs with 3D V-Cache (X3D), it manages the V-Cache settings for you.
-- **SCX scheduler integration:** Picks the CPU scheduler (scx) that suits the specific game.
-- **VRAM prioritization (dmem):** Uses the Linux dmem cgroup, a recent technology for managing GPU video memory (VRAM). The game or heavy app in the foreground gets priority for VRAM, so background programs like web browsers or the desktop compositor can't hold on to it and cause stutter. This is built into falcond.
+- **3D V-Cache management:** On AMD CPUs with 3D V-Cache (X3D), on cpu's with dual ccd's, it keeps the game on the Vcache die.
+- **SCX scheduler integration:** Pick the CPU scheduler (scx) that suits the specific game.
+- **VRAM prioritization (dmem):** Uses the Linux dmem cgroup, a recent technology for managing GPU video memory (VRAM). The game or heavy app in the foreground gets priority for VRAM, so background programs like web browsers or the desktop compositor can't hold on to it and cause stutter.
 - **Proton support:** Works with Steam Proton games, and a global profile gives good coverage for games without their own profile.
 - **Device modes:** Profiles for desktops, handhelds, HTPCs and more.
 - **Low overhead:** Uses very few system resources.
 
-### What is dmem?
-
-Your GPU has a limited amount of video memory (VRAM). Normally, background programs can use a chunk of it, which can lead to stutter when a game needs more. dmem lets the system give VRAM priority to the game you're playing.
 
 ---
 <div style="margin-top: 50px;"></div>
@@ -254,10 +252,6 @@ Your GPU has a limited amount of video memory (VRAM). Normally, background progr
 # Troubleshooting Proton
 
 ### Capturing and sharing Proton logs
-
-If a game crashes or misbehaves, a Proton log is the first thing anyone helping you will ask for.
-
-When sharing logs, upload them to [paste.pika-os.com](https://paste.pika-os.com/) instead of pasting them directly into the chat. Drag and drop the log file onto the website, then share the link it gives you.
 
 To turn on Proton logging for a game:
 
@@ -267,5 +261,6 @@ To turn on Proton logging for a game:
 > `PROTON_LOG=1 %command%`
 
 The next time you start the game, Proton writes a log file to your home folder named `steam-[AppID].log`. For example, Counter-Strike 2 has the AppID 730, so its log is `steam-730.log`.
+
 
 ---
